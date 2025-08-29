@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Vito café La Sua Casa - Auténtica Cocina Italiana</title>
+   
+    <!-- Tailwind CSS -->
+   
+    <script src="https://cdn.tailwindcss.com"></script>
+   
+    <!-- Font Awesome -->
+   
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+   
+    <!-- Google Fonts -->
+   
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    
+    <!-- Tus estilos personalizados -->
+    
+    <link rel="stylesheet" href="styles.css">
+
+</head>
+<body class="bg-white">
+
+    <!-- Header y Navegación -->
+    
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <nav class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center">
+                    <h1 class="title-font text-2xl md:text-3xl text-red-600">Vito café La Sua Casa</h1>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#inicio" class="text-gray-700 hover:text-red-600 transition">Inicio</a>
+                    <a href="#menu" class="text-gray-700 hover:text-red-600 transition">Menú</a>
+                    <a href="#contacto" class="text-gray-700 hover:text-red-600 transition">Contacto</a>
+                </div>
+                <div class="md:hidden">
+                    <button id="mobile-menu-btn" class="text-gray-700">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+            <div id="mobile-menu" class="hidden md:hidden mt-4 space-y-2">
+                <a href="#inicio" class="block py-2 text-gray-700 hover:text-red-600">Inicio</a>
+                <a href="#menu" class="block py-2 text-gray-700 hover:text-red-600">Menú</a>
+                <a href="#contacto" class="block py-2 text-gray-700 hover:text-red-600">Contacto</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    
+    <section id="inicio" class="relative bg-gray-900 text-white">
+        <div class="absolute inset-0 bg-black opacity-50"></div>
+        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/e5ba3b6c-091d-4712-86a8-1bfc4ac18240.png" alt="Acogedor interior del restaurante Vitocafé La Su Casa" class="w-full h-96 object-cover">
+        <div class="absolute inset-0 flex items-center justify-center">
+            <div class="text-center px-6">
+                <h2 class="title-font text-4xl md:text-6xl mb-4 fade-in">Vito café La Sua Casa</h2>
+                <p class="text-xl md:text-2xl mb-8 fade-in">Auténticos sabores italianos desde 1998</p>
+                <button onclick="scrollToSection('menu')" class="bg-red-600 hover:bg-red-700 text-white px-8 py-3 rounded-full transition transform hover:scale-105">
+                    Ver Carta
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección de Menú -->
+    <section id="menu" class="py-16 bg-white">
+        <div class="container mx-auto px-6">
+            <h2 class="title-font text-3xl md:text-4xl text-center mb-12 text-gray-800">Nuestra Carta</h2>
+            <div class="flex justify-center mb-12 flex-wrap gap-2">
+                <button class="category-btn px-6 py-2 rounded-full bg-red-600 text-white active" data-category="all">Todo</button>
+                <button class="category-btn px-6 py-2 rounded-full bg-gray-200 text-gray-700 hover:bg-red-600 hover:text-white transition" data-category="antipasti">Entradas</button>
+                <button class="category-btn px-6 py-2 rounded-full bg-gray-200 text-gray-700 hover:bg-red-600 hover:text-white transition" data-category="primi">Pastas</button>
+                <button class="category-btn px-6 py-2 rounded-full bg-gray-200 text-gray-700 hover:bg-red-600 hover:text-white transition" data-category="secondi">Carnes</button>
+                <button class="category-btn px-6 py-2 rounded-full bg-gray-200 text-gray-700 hover:bg-red-600 hover:text-white transition" data-category="pizza">Pizzas</button>
+                <button class="category-btn px-6 py-2 rounded-full bg-gray-200 text-gray-700 hover:bg-red-600 hover:text-white transition" data-category="dolci">Postres</button>
+                <button class="category-btn px-6 py-2 rounded-full bg-gray-200 text-gray-700 hover:bg-red-600 hover:text-white transition" data-category="bebidas">Bebidas</button>
+            </div>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" id="menu-grid">
+    
+                <!-- Los elementos del menú se generarán dinámicamente con JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contacto" class="bg-gray-800 text-white py-12">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-3 gap-8">
+                <div>
+                    <h3 class="title-font text-xl mb-4">Vito café La Sua Casa</h3>
+                    <p class="mb-2"><i class="fas fa-map-marker-alt mr-2"></i> Calle x, Ciudad Santa Fe</p>
+                    <p class="mb-2"><i class="fas fa-phone mr-2"></i> +0000000000</p>
+                    <p class="mb-4"><i class="fas fa-envelope mr-2"></i> info@vitocafelasuacasa.com</p>
+                </div>
+                <div>
+                    <h3 class="title-font text-xl mb-4">Horarios de atencion</h3>
+                    <p class="mb-1">Lunes - Jueves: 13:00 - 23:00</p>
+                    <p class="mb-1">Viernes - Sábado: 13:00 - 00:00</p>
+                    <p class="mb-1">Domingo: 13:00 - 22:00</p>
+                </div>
+                <div>
+                    <h3 class="title-font text-xl mb-4">Síguenos</h3>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-white hover:text-red-500 transition"><i class="fab fa-facebook fa-2x"></i></a>
+                        <a href="#" class="text-white hover:text-red-500 transition"><i class="fab fa-instagram fa-2x"></i></a>
+                        <a href="#" class="text-white hover:text-red-500 transition"><i class="fab fa-whatsapp fa-2x"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center">
+                <p>© 2025 Vitocafé La Su Casa.</p>
+            </div>
+        </div>
+    </footer>
+    <!-- Tu JS externo -->
+    <script src="script.js"></script>
+</body>
+</html>

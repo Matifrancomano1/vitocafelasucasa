@@ -1,0 +1,31 @@
+body {
+    font-family: 'Lato', sans-serif;
+    background-color: #f8f9fa;
+}
+
+.title-font {
+    font-family: 'Playfair Display', serif;
+}
+
+.menu-item {
+    transition: transform 0.3s ease;
+}
+
+.menu-item:hover {
+    transform: translateY(-5px);
+}
+
+.category-btn.active {
+    background-color: #dc2626;
+    color: white;
+}
+
+/* Animaciones suaves */
+.fade-in {
+    animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
