@@ -1,10 +1,13 @@
+// =======================
+// DATOS DEL MENÚ
+// =======================
 let menuItems = [
     // ANTIPASTI - ENTRADAS
     {
         id: 1,
         name: "Bruschetta Classica",
         description: "Pan tostado con tomate fresco, albahaca y aceite de oliva virgen extra",
-        price: 8500,
+        price : 8.500,
         category: "antipasti"
     },
     {
@@ -160,7 +163,6 @@ document.addEventListener('DOMContentLoaded', function() {
     renderMenuItems();
     setupEventListeners();
     setupCategoryFilters();
-    setupReservaForm();
 });
 
 function setupEventListeners() {
@@ -186,40 +188,31 @@ function renderMenuItems() {
     menuItems.forEach(item => {
         const menuItemElement = createMenuItemElement(item);
         menuGrid.appendChild(menuItemElement);
-        setTimeout(() => menuItemElement.classList.add('fade-in'), 100);
     });
 }
 
 function createMenuItemElement(item) {
     const div = document.createElement('div');
-    div.className = 'menu-item bg-white rounded-lg shadow-md overflow-hidden p-6 flex flex-col';
+    div.className = 'menu-item bg-white rounded-lg shadow-md overflow-hidden p-6';
     div.setAttribute('data-category', item.category);
     div.innerHTML = `
         <div class="flex justify-between items-start mb-2">
             <h3 class="text-xl font-semibold text-gray-800">${item.name}</h3>
-            <span class="text-2xl font-bold text-red-600">${formatPrice(item.price)}</span>
+            <span class="text-2xl font-bold text-red-600">$${item.price.toFixed(2)}</span>
         </div>
-        <p class="text-gray-600 mb-4 flex-1">${item.description}</p>
-        <span class="px-3 py-1 bg-gray-100 text-gray-600 text-sm rounded-full self-start">
+        <p class="text-gray-600 mb-4">${item.description}</p>
+        <span class="px-3 py-1 bg-gray-100 text-gray-600 text-sm rounded-full">
             ${categoryNames[item.category] || item.category}
         </span>
-        <button class="mt-4 bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-full transition buy-btn" aria-label="Comprar ${item.name}">Comprar</button>
     `;
-    div.querySelector('.buy-btn').addEventListener('click', () => {
-        alert(`¡Gracias por tu interés en comprar "${item.name}"! Pronto habilitaremos la tienda online.`);
-    });
     return div;
-}
-
-function formatPrice(price) {
-    return price.toLocaleString('es-CO', { style: 'currency', currency: 'COP', minimumFractionDigits: 0 });
 }
 
 function filterMenuByCategory(category) {
     const menuItems = document.querySelectorAll('.menu-item');
     menuItems.forEach(item => {
         if (category === 'all' || item.getAttribute('data-category') === category) {
-            item.style.display = 'flex';
+            item.style.display = 'block';
         } else {
             item.style.display = 'none';
         }
@@ -235,19 +228,4 @@ function scrollToSection(sectionId) {
     document.getElementById(sectionId).scrollIntoView({
         behavior: 'smooth'
     });
-}
-
-// Sistema de reservas (formulario)
-function setupReservaForm() {
-    const form = document.getElementById('reserva-form');
-    if (!form) return;
-    form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        document.getElementById('reserva-msg').classList.remove('hidden');
-        setTimeout(() => {
-            document.getElementById('reserva-msg').classList.add('hidden');
-            form.reset();
-        }, 3000);
-    });
-
 }
