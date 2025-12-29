@@ -1,6 +1,11 @@
 // =======================
 // DATOS DEL MENÚ
 // =======================
+// Si vas a publicar un Apps Script como Web App, pega aquí la URL pública
+const MENU_API_URL = 'https://docs.google.com/spreadsheets/d/1i7YN_nA2RCG1_Uh-Hu2H8RM2r1qhkwQlimbHqe7I4wc/edit?usp=sharing';// e.g. 'https://script.google.com/macros/s/AKfycbxxx/exec'
+
+// Control: si MENU_API_URL está vacío usaremos los datos locales definidos abajo
+
 let menuItems = [
     // ANTIPASTI - ENTRADAS
     {
@@ -160,9 +165,12 @@ const categoryNames = {
 };
 
 document.addEventListener('DOMContentLoaded', function() {
-    renderMenuItems();
     setupEventListeners();
     setupCategoryFilters();
+    renderMenuItems();
+    if (MENU_API_URL && MENU_API_URL.trim() !== '') {
+        fetchMenuFromApi(MENU_API_URL).catch(err => console.error('Error cargando menú desde API:', err));
+    }
 });
 
 function setupEventListeners() {
@@ -228,4 +236,44 @@ function scrollToSection(sectionId) {
     document.getElementById(sectionId).scrollIntoView({
         behavior: 'smooth'
     });
+}
+
+// =======================
+// FETCH desde API (Google Apps Script / Sheets)
+// =======================
+async function fetchMenuFromApi(url) {
+    const menuGrid = document.getElementById('menu-grid');
+    showLoading(menuGrid);
+    try {
+        const res = await fetch(url, { cache: 'no-store' });
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const data = await res.json();
+        if (!Array.isArray(data)) throw new Error('Respuesta no es un array');
+        // Mapear campos si vienen con cabeceras diferentes
+        menuItems = data.map((row, idx) => {
+            // Soportar tanto objetos con keys como arrays indexados
+            if (Array.isArray(row)) return row;
+            const price = Number(row.price ?? row.precio ?? row.Price ?? 0) || 0;
+            return {
+                id: row.id ?? row.ID ?? idx + 1,
+                name: row.name ?? row.nombre ?? row.Name ?? 'Sin nombre',
+                description: row.description ?? row.descripcion ?? row.Descripcion ?? '',
+                price: price,
+                category: (row.category ?? row.categoria ?? row.Category ?? 'other').toString().toLowerCase()
+            };
+        });
+        renderMenuItems();
+    } catch (err) {
+        showError(menuGrid, 'No se pudo cargar el menú. Usando datos locales.');
+        console.error(err);
+        renderMenuItems();
+    }
+}
+
+function showLoading(container) {
+    container.innerHTML = `<div class="col-span-full text-center py-12 text-gray-500">Cargando menú...</div>`;
+}
+
+function showError(container, message) {
+    container.innerHTML = `<div class="col-span-full text-center py-6 text-red-500">${message}</div>`;
 }
